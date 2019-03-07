@@ -1,2 +1,2 @@
-# learn_discord_bot
+# Learn Python
 Learn Python with discord and Docker
