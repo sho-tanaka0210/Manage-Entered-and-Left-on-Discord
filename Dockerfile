@@ -1,5 +1,4 @@
 FROM python:3
-USER root
 
 RUN apt-get update
 RUN apt-get -y install locales && \
@@ -10,6 +9,11 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ JST-9
 ENV TERM xterm
 
+RUN mkdir -p /usr/src
+
 RUN apt-get install -y vim less
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
+
+# Install discord.py
+RUN python3 -m pip install -U discord.py

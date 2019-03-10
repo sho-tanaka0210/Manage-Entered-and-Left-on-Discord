@@ -1,10 +1,9 @@
 version: '3'
 services:
-  python3:
-    restart: always
+  app:
     build: .
-    container_name: 'python3'
-    working_dir: '/root/'
+    container_name: 'discord_test'
+    working_dir: '/src'
     tty: true
     volumes:
-      - ./opt:/root/opt
+      - /src:/usr/src
