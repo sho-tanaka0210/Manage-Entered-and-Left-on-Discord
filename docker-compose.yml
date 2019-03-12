@@ -3,7 +3,6 @@ services:
   app:
     build: .
     container_name: 'discord_test'
-    working_dir: '/src'
     tty: true
     volumes:
-      - /src:/usr/src
+      - ./src:/discord_bot/src

@@ -9,7 +9,7 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ JST-9
 ENV TERM xterm
 
-RUN mkdir -p /usr/src
+RUN mkdir -p /discord_bot/src
 
 RUN apt-get install -y vim less
 RUN pip install --upgrade pip
