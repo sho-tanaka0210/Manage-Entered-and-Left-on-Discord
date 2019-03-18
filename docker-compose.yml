@@ -1,8 +1,9 @@
 version: '3'
 services:
-  app:
+  bot:
     build: .
     container_name: 'discord_test'
     tty: true
+    working_dir: '/discord_test/src'
     volumes:
-      - ./src:/discord_bot/src
+      - './src:/discord_test/src'
