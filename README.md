@@ -18,6 +18,11 @@ $ docker-compose up -d
 $ docker-compose down
 ```
 
+## Run Hello World!
+```bash
+$ docker-compose run --rm bot python hello_world.py
+```
+
 # Reference
 [dockerで簡易にpython3の環境を作ってみる](https://qiita.com/reflet/items/4b3f91661a54ec70a7dc)
 
