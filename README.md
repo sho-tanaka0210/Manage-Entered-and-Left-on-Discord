@@ -36,3 +36,6 @@ $ docker-compose run --rm bot python bot.py
 [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
 
 [Discordで通話時間を測定するBotを作ってみた](https://qiita.com/tokkq/items/311aa297175b9cf7f946)
+
+# LICENSE
+MIT
