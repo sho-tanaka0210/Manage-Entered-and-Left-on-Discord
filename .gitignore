@@ -105,3 +105,6 @@ venv.bak/
 
 # config.ini
 src/resources/config.ini
+
+# Visual Studio Code json file
+.vscode/*
