@@ -2,8 +2,8 @@ version: '3'
 services:
   bot:
     build: .
-    container_name: 'discord_test'
+    container_name: 'discord_entered_and_left'
     tty: true
-    working_dir: '/discord_test/src'
+    working_dir: '/application/src'
     volumes:
-      - './src:/discord_test/src'
+      - './src:/application/src'
