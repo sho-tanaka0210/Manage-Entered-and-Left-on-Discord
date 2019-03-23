@@ -28,28 +28,22 @@ async def on_voice_state_update(before, after):
 	player_name = ""
 	text = ""
 
-	channel_name = inifile.get('bot_settings', 'channel_name')
+	# 入室した場合
+	# If someone enterd VOICE CHANNEL.
+	if(before.voice_channel is None):
+		player_name = after.name
+		text = player_name + inifile.get('message','entering_message')
 
-	# config.ini へ記載したチャンネル名と一致した場合
-	if(channel_name == str(before.voice_channel)
-			or channel_name == str(after.voice_channel)):
+	# 退室した場合
+	# If someone left VOICE CHANNEL.
+	elif(after.voice_channel is None):
+		player_name = before.name
+		text = player_name + inifile.get('message','leaving_message')
 
-		# 入室した場合
-		# If someone enterd VOICE CHANNEL.
-		if(before.voice_channel is None):
-			player_name = after.name
-			text = player_name + inifile.get('message','entering_message')
-
-		# 退室した場合
-		# If someone left VOICE CHANNEL.
-		elif(after.voice_channel is None):
-			player_name = before.name
-			text = player_name + inifile.get('message','leaving_message')
-
-		# 発言するチャンネルの指定
-		# Set channel id.
-		channel = client.get_channel(inifile.get('bot_settings','channel_id'))
-		await client.send_message(channel, text)
+	# 発言するチャンネルの指定
+	# Set channel id.
+	channel = client.get_channel(inifile.get('bot_settings','channel_id'))
+	await client.send_message(channel, text)
 
 # botの接続と起動
 # Set token.
