@@ -1,6 +1,13 @@
 # Learn Python
 Learn Python with discord and Docker.
 
+# Version
+## Python
+3.6
+
+## discord.py
+1.2.0a
+
 # Usage
 
 ## Build
