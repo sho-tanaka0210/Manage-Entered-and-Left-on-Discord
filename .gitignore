@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 # config.ini
-src/resources/config.ini
+config.ini
 
 # Visual Studio Code json file
 .vscode/*
