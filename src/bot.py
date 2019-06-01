@@ -1,5 +1,6 @@
 import discord
 import configparser
+import re
 
 client = discord.Client()
 
@@ -38,7 +39,7 @@ async def on_voice_state_update(before, after):
     elif(after.voice_channel is None):
         player_name = before.name
         text = player_name + inifile.get('message','leaving_message')
-    
+
     # 発言するチャンネルの指定
     # Set channel id.
     channel = client.get_channel(inifile.get('bot_settings','channel_id'))
