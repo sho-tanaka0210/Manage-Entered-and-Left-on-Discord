@@ -4,6 +4,6 @@ services:
     build: .
     container_name: 'discord_entered_and_left'
     tty: true
-    working_dir: '/application/src'
+    working_dir: '/application'
     volumes:
-      - './src:/application/src'
+      - '.:/application/'
