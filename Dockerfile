@@ -1,7 +1,5 @@
 FROM python:3.6-alpine
 
-RUN mkdir -p /application/src
-
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 

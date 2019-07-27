@@ -1,6 +1,7 @@
 import discord
 import configparser
 import re
+import random
 
 client = discord.Client()
 
@@ -13,7 +14,11 @@ inifile.read('./config.ini', 'UTF-8')
 # Set separator
 SEPARATOR = "\n"
 
-#  '!help'コマンドが入力された場合
+# コードブロックの設定
+# Set code blocks on markdown
+CODEBLOCKS = '```'
+
+# '!help'コマンドが入力された場合
 # If someone entered '!help'.
 @client.event
 async def on_message(message):
@@ -34,12 +39,14 @@ async def on_voice_state_update(member, before, after):
         # 入室した場合
         # If someone enterd VOICE CHANNEL.
         if(before.channel is None):
-            message = f'{str(member.name)}' + inifile.get('message','entering_message')
+            message = '' + inifile.get('entering_message', str(random.randrange(6)))
+            message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
 
         # 退室した場合
         # If someone left VOICE CHANNEL.
         elif(after.channel is None):
-            message = f'{str(member.name)}' + inifile.get('message','entering_message')
+            message = '' + inifile.get('leaving_message','1')
+            message =  CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
 
         await channel.send(message)
         return
