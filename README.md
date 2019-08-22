@@ -1,5 +1,4 @@
-# Learn Python
-Learn Python with discord and Docker.
+# Notification for entered and left on Discord
 
 # Version
 ## Python
