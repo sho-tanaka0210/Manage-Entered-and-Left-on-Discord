@@ -1,5 +1,7 @@
 # Notification for entered and left on Discord
 
+[日本語](./README.ja.md)
+
 # Version
 
 Item | version
@@ -9,7 +11,7 @@ Python | 3.6
 
 # Usage
 
-This program assumes operation with heroku.
+This program assumes operation with heroku.  
 Please clone the source code.
 
 ## How to use
@@ -31,6 +33,9 @@ $ docker-compose run --rm bot python bot.py
 # Stop container
 $ docker-compose down
 ```
+
+If you ’ve verified that your program is working correctly with the steps above,  
+Please start using it on heroku.
 
 # Reference
 [dockerで簡易にpython3の環境を作ってみる](https://qiita.com/reflet/items/4b3f91661a54ec70a7dc)
