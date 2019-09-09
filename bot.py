@@ -18,14 +18,6 @@ SEPARATOR = "\n"
 # Set code blocks on markdown
 CODEBLOCKS = '```'
 
-# '!help'コマンドが入力された場合
-# If someone entered '!help'.
-@client.event
-async def on_message(message):
-    if message.content.startswith('!help'):
-        text = inifile.get('message','help_message_1') + SEPARATOR + inifile.get('message','help_message_2')
-        await message.channel.send(text)
-
 # 入退室管理
 # Manage Entered and left.
 @client.event
@@ -33,7 +25,11 @@ async def on_voice_state_update(member, before, after):
     message = ""
     # 発言するチャンネルの指定
     # Set channel id.
-    channel = client.get_channel(int(inifile.get('bot_settings','channel_id')))
+    channel = ''
+    if(str(inifile.get('application_environment', 'env')) == 'prod'):
+        channel = client.get_channel(int(inifile.get('bot_settings','channel_id')))
+    elif(str(inifile.get('application_environment', 'env')) == 'test'):
+        channel = client.get_channel(int(inifile.get('bot_settings','channel_id_test')))
 
     try:
         # 入室した場合
@@ -41,7 +37,7 @@ async def on_voice_state_update(member, before, after):
         if(before.channel is None):
             message = '' + inifile.get('entering_message', str(random.randrange(6)))
             if(member.nick is None):
-            message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+                message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
             else:
                 message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
 
@@ -64,4 +60,7 @@ async def on_voice_state_update(member, before, after):
 
 # botの接続と起動
 # Set token.
-client.run(inifile.get('bot_settings','token'))
+if(str(inifile.get('application_environment', 'env')) == 'prod'):
+    client.run(inifile.get('bot_settings','token'))
+elif(str(inifile.get('application_environment', 'env')) == 'test'):
+    client.run(inifile.get('bot_settings','token_test'))
