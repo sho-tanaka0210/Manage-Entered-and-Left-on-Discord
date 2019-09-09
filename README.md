@@ -1,37 +1,35 @@
 # Notification for entered and left on Discord
 
 # Version
-## Python
-3.6
 
-## discord.py
-1.2.0a
+Item | version
+-- | --
+Python | 3.6
+[discord.py](https://discordpy.readthedocs.io/en/latest/) | 1.2.0a
 
 # Usage
 
-## Build
+This program assumes operation with heroku.
+Please clone the source code.
+
+## How to use
+
 ```bash
+# git clone
+$ git clone git@github.com:Mizukichi0210/Manage-Entered-and-Left-on-Discord.git
+
+$ cd Manage-Entered-and-Left-on-Discord
+
+# Create config.ini
+# Set token and channel id
+$ cp -p config_example.ini config.ini
+
+# Test run
 $ docker-compose up -d --build
-```
-
-## Run container
-```bash
-$ docker-compose up -d
-```
-
-## Stop container
-```bash
-$ docker-compose down
-```
-
-## Run Hello World!
-```bash
-$ docker-compose run --rm bot python hello_world.py
-```
-
-## Run Entering / Learing manage bot
-```bash
 $ docker-compose run --rm bot python bot.py
+
+# Stop container
+$ docker-compose down
 ```
 
 # Reference
