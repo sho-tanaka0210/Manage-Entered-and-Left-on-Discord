@@ -40,13 +40,19 @@ async def on_voice_state_update(member, before, after):
         # If someone enterd VOICE CHANNEL.
         if(before.channel is None):
             message = '' + inifile.get('entering_message', str(random.randrange(6)))
+            if(member.nick is None):
             message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+            else:
+                message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
 
         # 退室した場合
         # If someone left VOICE CHANNEL.
         elif(after.channel is None):
-            message = '' + inifile.get('leaving_message','1')
-            message =  CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+            message = '' + inifile.get('leaving_message', str(random.randrange(5)))
+            if(member.nick is None):
+                message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+            else:
+                message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
 
         await channel.send(message)
         return
