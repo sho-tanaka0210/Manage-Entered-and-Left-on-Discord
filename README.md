@@ -6,8 +6,8 @@
 
 Item | version
 -- | --
-Python | 3.6
-[discord.py](https://discordpy.readthedocs.io/en/latest/) | 1.2.0a
+Python | 3.7.5
+[discord.py](https://discordpy.readthedocs.io/en/latest/) | 1.2.5
 
 # Usage
 
@@ -26,12 +26,11 @@ $ cd Manage-Entered-and-Left-on-Discord
 # Set token and channel id
 $ cp -p config_example.ini config.ini
 
-# Test run
-$ docker-compose up -d --build
-$ docker-compose run --rm bot python bot.py
+# Generate docker image
+$ docker build . -t bot-run-image
 
-# Stop container
-$ docker-compose down
+# Run
+$ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
 
 If you ’ve verified that your program is working correctly with the steps above,  

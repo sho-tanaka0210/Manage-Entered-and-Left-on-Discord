@@ -4,8 +4,8 @@
 
 使用項目 | バージョン
 -- | --
-Python | 3.6
-[discord.py](https://discordpy.readthedocs.io/ja/latest/) | 1.2.0a
+Python | 3.7.5
+[discord.py](https://discordpy.readthedocs.io/ja/latest/) | 1.2.5
 
 # 使用
 
@@ -24,16 +24,19 @@ $ cd Manage-Entered-and-Left-on-Discord
 # tokenとchannel_idを設定する
 $ cp -p config_example.ini config.ini
 
-# テスト実行
-$ docker-compose up -d --build
-$ docker-compose run --rm bot python bot.py
+# 実行環境作成
+$ docker build . -t bot-run-image
 
-# コンテナの停止
-$ docker-compose down
+# 実行
+$ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
 
 上記手順で動作的に問題がないことが確認できた場合、  
 herokuにて実際に使用を開始してください。
+
+herokuへのデプロイ方法は[公式サイト](https://jp.heroku.com/home)参照のこと
+
+良いVCライフを！
 
 # Reference
 [dockerで簡易にpython3の環境を作ってみる](https://qiita.com/reflet/items/4b3f91661a54ec70a7dc)
