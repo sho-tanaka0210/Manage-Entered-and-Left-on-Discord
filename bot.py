@@ -3,6 +3,8 @@ import configparser
 import re
 import random
 
+print('bot start')
+
 client = discord.Client()
 
 # config.ini の読み込み
@@ -44,12 +46,17 @@ async def on_voice_state_update(member, before, after):
         # 退室した場合
         # If someone left VOICE CHANNEL.
         elif(after.channel is None):
-            message = '' + inifile.get('leaving_message', str(random.randrange(5)))
+            message = '' + inifile.get('leaving_message', str(random.randrange(1)))
             if(member.nick is None):
                 message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
             else:
                 message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
 
+        # メッセージがブランクの場合何もしない
+        # Do nothing if message is blank.
+        if (message == ""):
+            return
+        print(message)
         await channel.send(message)
         return
 
