@@ -2,8 +2,13 @@ import discord
 import configparser
 import re
 import random
+import calendar
+import constants as cnt
 
-print('bot start')
+from discord.ext import tasks
+from datetime import datetime 
+
+print(cnt.const.RUN_MESSAGE)
 
 client = discord.Client()
 
@@ -64,34 +69,34 @@ async def on_voice_state_update(member, before, after):
     # Set channel id.
     channel = ''
     if(str(inifile.get('application_environment', 'env')) == 'prod'):
-        channel = client.get_channel(int(inifile.get('bot_settings','channel_id')))
+        channel = client.get_channel(int(inifile.get('bot_settings', 'kokuchi_channel_id')))
     elif(str(inifile.get('application_environment', 'env')) == 'test'):
-        channel = client.get_channel(int(inifile.get('bot_settings','channel_id_test')))
+        channel = client.get_channel(int(inifile.get('bot_settings', 'channel_id_test')))
 
     try:
         # 入室した場合
         # If someone enterd VOICE CHANNEL.
         if(before.channel is None):
-            message = '' + inifile.get('entering_message', str(random.randrange(6)))
+            message = cnt.const.IN + inifile.get('entering_message', str(random.randrange(8)))
             if(member.nick is None):
-                message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
             else:
-                message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
 
         # 退室した場合
         # If someone left VOICE CHANNEL.
         elif(after.channel is None):
-            message = '' + inifile.get('leaving_message', str(random.randrange(1)))
+            message = cnt.const.OUT + inifile.get('leaving_message', str(random.randrange(7)))
             if(member.nick is None):
-                message = CODEBLOCKS + message.replace('name', f'{str(member.name)}') + CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
             else:
-                message = CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
 
-        # メッセージがブランクの場合何もしない
-        # Do nothing if message is blank.
-        if (message == ""):
+        # メッセージがIN or OUTのみの場合は何もしない
+        # Do nothing if message has only [IN] or [OUT].
+        if (len(message) == len(cnt.const.IN) or len(message) == len(cnt.const.OUT) or message == ''):
             return
-        print(message)
+        print(message.replace(cnt.const.CODEBLOCKS, ''))
         await channel.send(message)
         return
 
