@@ -12,13 +12,48 @@ client = discord.Client()
 inifile = configparser.ConfigParser()
 inifile.read('./config.ini', 'UTF-8')
 
-# 改行コードの設定
-# Set separator
-SEPARATOR = "\n"
+# 定期的なメッセージ投稿機能
+# Message posting function at specified time
+@tasks.loop(seconds=60)
+async def loop():
+    channel = ''
+    if(str(inifile.get('application_environment', 'env')) == 'prod'):
+        channel = client.get_channel(int(inifile.get('bot_settings', 'main_channel_id')))
+    elif(str(inifile.get('application_environment', 'env')) == 'test'):
+        channel = client.get_channel(int(inifile.get('bot_settings', 'channel_id_test')))
 
-# コードブロックの設定
-# Set code blocks on markdown
-CODEBLOCKS = '```'
+    if(channel == ''):
+        print('main_channel_idが空です')
+        return
+
+    # 現在の時刻を取得
+    # Get current time
+    now = datetime.now().strftime('%H:%M')
+    try:
+        message = ''
+        # TODO: 将来的にlistで持てるようにする
+        # メッセージ投稿時刻
+        # Message posting time
+        if(now == '10:00' or now == '19:00' or now == '23:00'):
+            weekday = datetime.today().weekday()
+            weekday_name = calendar.day_name[weekday]
+            # TODO: 将来的にlistで持てるようにする
+            # メッセージ投稿曜日
+            # Message posting day
+            if(weekday_name == 'Monday' or weekday_name == 'Wednesday'):
+                message = cnt.const.POST_MESSAGE
+                message = cnt.const.EVERYONE + cnt.const.SEPARATOR + message
+        if(message == ''):
+            return
+        print(message)
+        await channel.send(message)
+        return
+    except Exception as e:
+        print(e)
+
+# 定期的なメッセージ投稿を使用した場合、コメントアウトを消すこと
+# If you want to use message posting function at specified time, remove comment out.
+# loop.start()
 
 # 入退室管理
 # Manage Entered and left.
