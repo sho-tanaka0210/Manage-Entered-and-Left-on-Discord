@@ -1,9 +1,10 @@
-import discord
+import calendar
 import configparser
+import constants as cnt
+import discord
+import os
 import re
 import random
-import calendar
-import constants as cnt
 
 from discord.ext import tasks
 from datetime import datetime 
@@ -17,20 +18,42 @@ client = discord.Client()
 inifile = configparser.ConfigParser()
 inifile.read('./config.ini', 'UTF-8')
 
+async def create_code_block_message(member, before, after):
+    """Create a message with codeblock
+    :param
+        - member: Logged in / logged out user
+        - before: Is started voice chat
+        - after: Is left voice chat
+    """
+    message = ''
+    # 入室した場合
+    # If someone enterd VOICE CHANNEL.
+    if(before.channel is None):
+        message = cnt.const.IN + inifile.get('entering_message', str(random.randrange(8)))
+        if(member.nick is None):
+            message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
+        else:
+            message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
+
+    # 退室した場合
+    # If someone left VOICE CHANNEL.
+    elif(after.channel is None):
+        message = cnt.const.OUT + inifile.get('leaving_message', str(random.randrange(7)))
+        if(member.nick is None):
+            message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
+        else:
+            message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
+
+    return message
+
 # 定期的なメッセージ投稿機能
 # Message posting function at specified time
 @tasks.loop(seconds=60)
 async def loop():
-    channel = ''
-    if(str(inifile.get('application_environment', 'env')) == 'prod'):
-        channel = client.get_channel(
-            int(inifile.get('bot_settings', 'main_channel_id')))
-    elif(str(inifile.get('application_environment', 'env')) == 'test'):
-        channel = client.get_channel(
-            int(inifile.get('bot_settings', 'channel_id_test')))
+    channel = client.get_channel(int(os.environ['MAIN_CHANNEL_ID']))
 
     if(channel == ''):
-        print('channel is empty')
+        print('MAIN_CHANNEL_ID is empty')
         return
 
     # 現在の時刻を取得
@@ -70,40 +93,16 @@ async def on_voice_state_update(member, before, after):
     message = ""
     # 発言するチャンネルの指定
     # Set channel id.
-    channel = ''
-    if(str(inifile.get('application_environment', 'env')) == 'prod'):
-        channel = client.get_channel(
-            int(inifile.get('bot_settings', 'kokuchi_channel_id')))
-    elif(str(inifile.get('application_environment', 'env')) == 'test'):
-        channel = client.get_channel(
-            int(inifile.get('bot_settings', 'channel_id_test')))
+    channel = client.get_channel(int(os.environ['KOKUCHI_CHANNEL_ID']))
+
+    if(channel == ''):
+        print('KOKUCHI_CHANNEL_ID is empty')
+        return
 
     try:
         # 入室した場合
         # If someone enterd VOICE CHANNEL.
-        if(before.channel is None):
-            message = cnt.const.IN + inifile.get(
-                'entering_message', str(random.randrange(8)))
-            if(member.nick is None):
-                message = cnt.const.CODEBLOCKS + message.replace(
-                    'name', f'{str(member.name)}'
-                    ) + cnt.const.CODEBLOCKS
-            else:
-                message = cnt.const.CODEBLOCKS + message.replace(
-                    'name', f'{str(member.nick)}'
-                    ) + cnt.const.CODEBLOCKS
-
-        # 退室した場合
-        # If someone left VOICE CHANNEL.
-        elif(after.channel is None):
-            message = cnt.const.OUT + inifile.get(
-                'leaving_message', str(random.randrange(7)))
-            if(member.nick is None):
-                message = cnt.const.CODEBLOCKS + message.replace(
-                    'name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
-            else:
-                message = cnt.const.CODEBLOCKS + message.replace(
-                    'name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
+        message = await create_code_block_message(member, before, after)
 
         # メッセージがIN or OUTのみの場合は何もしない
         # Do nothing if message has only [IN] or [OUT].
@@ -121,7 +120,4 @@ async def on_voice_state_update(member, before, after):
 
 # botの接続と起動
 # Set token.
-if(str(inifile.get('application_environment', 'env')) == 'prod'):
-    client.run(inifile.get('bot_settings','token'))
-elif(str(inifile.get('application_environment', 'env')) == 'test'):
-    client.run(inifile.get('bot_settings','token_test'))
+client.run(os.environ['TOKEN'])
