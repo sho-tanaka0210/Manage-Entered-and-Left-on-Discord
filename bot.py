@@ -23,12 +23,14 @@ inifile.read('./config.ini', 'UTF-8')
 async def loop():
     channel = ''
     if(str(inifile.get('application_environment', 'env')) == 'prod'):
-        channel = client.get_channel(int(inifile.get('bot_settings', 'main_channel_id')))
+        channel = client.get_channel(
+            int(inifile.get('bot_settings', 'main_channel_id')))
     elif(str(inifile.get('application_environment', 'env')) == 'test'):
-        channel = client.get_channel(int(inifile.get('bot_settings', 'channel_id_test')))
+        channel = client.get_channel(
+            int(inifile.get('bot_settings', 'channel_id_test')))
 
     if(channel == ''):
-        print('main_channel_idが空です')
+        print('channel is empty')
         return
 
     # 現在の時刻を取得
@@ -57,7 +59,8 @@ async def loop():
         print(e)
 
 # 定期的なメッセージ投稿を使用した場合、コメントアウトを消すこと
-# If you want to use message posting function at specified time, remove comment out.
+# If you want to use message posting function at specified time, 
+# remove comment out.
 # loop.start()
 
 # 入退室管理
@@ -69,32 +72,43 @@ async def on_voice_state_update(member, before, after):
     # Set channel id.
     channel = ''
     if(str(inifile.get('application_environment', 'env')) == 'prod'):
-        channel = client.get_channel(int(inifile.get('bot_settings', 'kokuchi_channel_id')))
+        channel = client.get_channel(
+            int(inifile.get('bot_settings', 'kokuchi_channel_id')))
     elif(str(inifile.get('application_environment', 'env')) == 'test'):
-        channel = client.get_channel(int(inifile.get('bot_settings', 'channel_id_test')))
+        channel = client.get_channel(
+            int(inifile.get('bot_settings', 'channel_id_test')))
 
     try:
         # 入室した場合
         # If someone enterd VOICE CHANNEL.
         if(before.channel is None):
-            message = cnt.const.IN + inifile.get('entering_message', str(random.randrange(8)))
+            message = cnt.const.IN + inifile.get(
+                'entering_message', str(random.randrange(8)))
             if(member.nick is None):
-                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace(
+                    'name', f'{str(member.name)}'
+                    ) + cnt.const.CODEBLOCKS
             else:
-                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace(
+                    'name', f'{str(member.nick)}'
+                    ) + cnt.const.CODEBLOCKS
 
         # 退室した場合
         # If someone left VOICE CHANNEL.
         elif(after.channel is None):
-            message = cnt.const.OUT + inifile.get('leaving_message', str(random.randrange(7)))
+            message = cnt.const.OUT + inifile.get(
+                'leaving_message', str(random.randrange(7)))
             if(member.nick is None):
-                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace(
+                    'name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
             else:
-                message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
+                message = cnt.const.CODEBLOCKS + message.replace(
+                    'name', f'{str(member.nick)}') + cnt.const.CODEBLOCKS
 
         # メッセージがIN or OUTのみの場合は何もしない
         # Do nothing if message has only [IN] or [OUT].
-        if (len(message) == len(cnt.const.IN) or len(message) == len(cnt.const.OUT) or message == ''):
+        if (len(message) == len(cnt.const.IN) or 
+                len(message) == len(cnt.const.OUT) or message == ''):
             return
         print(message.replace(cnt.const.CODEBLOCKS, ''))
         await channel.send(message)
