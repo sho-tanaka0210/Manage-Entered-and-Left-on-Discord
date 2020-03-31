@@ -33,6 +33,17 @@ $ docker build . -t bot-run-image
 $ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
 
+### Prepare for deployment
+**Set environment variables**
+
+Environment variables required for execution
+
+1. Go to `https://dashboard.heroku.com/apps/{APP_NAME}/settings`
+1. Push `Reveal Config Vars`
+1. Set `TOKEN`
+1. Set `MAIN_CHANNEL_ID`
+1. Set `KOKUCHI_CHANNEL_ID`
+
 If you ’ve verified that your program is working correctly with the steps above,  
 Please start using it on heroku.
 

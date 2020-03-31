@@ -31,6 +31,15 @@ $ docker build . -t bot-run-image
 $ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
 
+### デプロイの準備
+**環境変数の設定**
+
+1. `https://dashboard.heroku.com/apps/{APP_NAME}/settings` へ遷移
+1. `Reveal Config Vars` の押下
+1. `TOKEN` の設定
+1. `MAIN_CHANNEL_ID` の設定
+1. `KOKUCHI_CHANNEL_ID` の設定
+
 上記手順で動作的に問題がないことが確認できた場合、  
 herokuにて実際に使用を開始してください。
 
