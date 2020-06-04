@@ -98,7 +98,7 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 環境変数名 | 概要
 :--: | :--:
-KOKUCHI_CHANNEL_ID | 入退室を投稿するチャンネルのID
+POST_CHANNEL_ID | 入退室を投稿するチャンネルのID
 TOKEN | BOTを起動するためのTOKEN
 
 Herokuでの環境変数の設定方法

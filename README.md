@@ -100,8 +100,8 @@ For this BOT, it is necessary to set some environment variables in the execution
 Here is an overview of the environment variables required for execution
 
 Environment variable name | Summary
-KOKUCHI_CHANNEL_ID | :--:
-KOKUCHI_CHANNEL_ID | ID of the channel to post access to the room.
+POST_CHANNEL_ID | :--:
+POST_CHANNEL_ID | ID of the channel to post access to the room.
 TOKEN | TOKEN to start the BOT
 
 How to set environment variables in Heroku
