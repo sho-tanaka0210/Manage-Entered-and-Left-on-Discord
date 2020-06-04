@@ -9,3 +9,7 @@ WORKDIR /discord_bot
 
 # Install discord.py
 RUN python3 -m pip install -U discord.py
+
+ENV TOKEN={SERVER_TOKEN} \
+  POST_CHANNEL_ID={POST_CHANNEL_ID} \
+  BOT_ID={BOT_ID}
