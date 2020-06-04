@@ -117,8 +117,7 @@ If it doesn't start, please create an Issue.
 
 **DEPRECATED**
 
-This is a +α of the following.
-To be updated in the future.
+Use the following procedure.
 
 ```bash
 # git clone
@@ -126,9 +125,7 @@ $ git clone git@github.com:Mizukichi0210/Manage-Entered-and-Left-on-Discord.git
 
 $ cd Manage-Entered-and-Left-on-Discord
 
-# Create a config.ini
-# Set the token and channel_id.
-$ cp -p config_example.ini config.ini
+# Set the information required for the ENV of the Docker file.
 
 # Creating an execution environment
 $ docker build . . -t bot-run-image
@@ -136,6 +133,8 @@ $ docker build . . -t bot-run-image
 # Execution
 $ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
+
+If the configuration is successful, BOT will be activated and messages will be posted to the designated channel when entering/exiting any voice chat.
 
 # Version
 

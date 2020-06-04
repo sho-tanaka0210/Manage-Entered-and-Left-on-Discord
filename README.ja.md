@@ -114,8 +114,11 @@ Herokuでの環境変数の設定方法
 
 **非推奨**
 
-以下の内容の+αになります。
-今後更新予定
+#### 前提
+- Dockerの導入
+
+#### 使用方法
+以下の手順で使用します。
 
 ```bash
 # git clone
@@ -123,9 +126,7 @@ $ git clone git@github.com:Mizukichi0210/Manage-Entered-and-Left-on-Discord.git
 
 $ cd Manage-Entered-and-Left-on-Discord
 
-# config.iniの作成
-# tokenとchannel_idを設定する
-$ cp -p config_example.ini config.ini
+# Dockerファイルの ENV に必要な情報を設定すること
 
 # 実行環境作成
 $ docker build . -t bot-run-image
@@ -133,6 +134,9 @@ $ docker build . -t bot-run-image
 # 実行
 $ docker run --rm --name bot-run-container -v $(pwd):/discord_bot -it bot-run-image /bin/ash
 ```
+
+設定が正常に完了している場合、BOTがアクティブになり、
+任意のボイスチャットへの入室 / 退出時に指定のチャンネルへメッセージが投稿されるようになります。
 
 # 使用バージョン
 
