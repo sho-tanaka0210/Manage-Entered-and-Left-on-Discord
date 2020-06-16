@@ -1,4 +1,5 @@
 # DiscordのVC入退室通知ツール
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 このBOTを導入したDiscordサーバの  
 ボイスチャットへIN or OUTした際のユーザ名を指定のチャンネルへ投稿します。
