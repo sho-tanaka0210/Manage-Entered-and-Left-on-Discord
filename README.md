@@ -1,5 +1,7 @@
 # Discord's VC entry/exit notification tool
-[日本語](./README.ja.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+:jp: [日本語](./README.ja.md)
 
 NOTE: This README has been translated using DeepL.
 
