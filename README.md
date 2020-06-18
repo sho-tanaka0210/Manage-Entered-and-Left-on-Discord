@@ -3,13 +3,10 @@
 
 :jp: [日本語](./README.ja.md)
 
-NOTE: This README has been translated using DeepL.
+NOTE: This README has been translated using [DeepL](https://www.deepl.com/translator).
 
-In the Discord server where this BOT is installed, the  
-Posting a user name to the specified channel when Entering and exiting to voice chat.
-
-![Example](https://raw.github.com/wiki/mizukichi0210/Manage-Entered-and-Left-on-Discord/example_gif.gif)
-
+In the Discord server where this BOT is installed, the Posting a user name to the specified channel when Entering and exiting to voice chat.  
+![Example](https://raw.github.com/wiki/mizukichi0210/Manage-Entered-and-Left-on-Discord/example_gif.gif)  
 There are so many members who are voice chatting, you can't tell who's in and who's out!  
 I can't be bothered to tell you I'm in! Why don't you try to introduce it when you have a problem?
 
