@@ -1,14 +1,13 @@
 FROM python:3.7.5-alpine3.10 
 
+WORKDIR /root
+
+COPY ./requirements.txt .
+
 RUN pip install --upgrade pip \
-  setuptools && pip install multidict==4.5.2 \
-  yarl==1.3.0
+  pip install -r requirements.txt
 
-RUN mkdir -p discrod_bot
 WORKDIR /discord_bot
-
-# Install discord.py
-RUN python3 -m pip install -U discord.py
 
 ENV TOKEN={SERVER_TOKEN} \
   POST_CHANNEL_ID={POST_CHANNEL_ID}
