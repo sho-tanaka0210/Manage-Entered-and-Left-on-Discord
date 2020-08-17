@@ -128,6 +128,9 @@ $ git clone git@github.com:Mizukichi0210/Manage-Entered-and-Left-on-Discord.git
 $ cd Manage-Entered-and-Left-on-Discord
 
 # Dockerファイルの ENV に必要な情報を設定すること
+## 設定パラメータ
+## {SERVER_TOKEN}: サーバのトークン
+## {POST_CHANNEL_ID}: メッセージ投稿チャンネル
 
 # 実行環境作成
 $ docker build . -t bot-run-image
