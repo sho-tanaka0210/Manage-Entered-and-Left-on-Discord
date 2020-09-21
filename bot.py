@@ -13,11 +13,6 @@ print(cnt.const.RUN_MESSAGE)
 
 client = discord.Client()
 
-# config.ini の読み込み
-# Read config.ini
-inifile = configparser.ConfigParser()
-inifile.read('./config.ini', 'UTF-8')
-
 async def create_code_block_message(member, before, after):
     """Create a message with codeblock
     :param
@@ -29,7 +24,7 @@ async def create_code_block_message(member, before, after):
     # 入室した場合
     # If someone enterd VOICE CHANNEL.
     if(before.channel is None):
-        message = cnt.const.IN + inifile.get('entering_message', str(random.randrange(8)))
+        message = cnt.const.IN + cnt.const.ENTERING_MESSAGE
         if(member.nick is None):
             message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
         else:
@@ -38,7 +33,7 @@ async def create_code_block_message(member, before, after):
     # 退室した場合
     # If someone left VOICE CHANNEL.
     elif(after.channel is None):
-        message = cnt.const.OUT + inifile.get('leaving_message', str(random.randrange(7)))
+        message = cnt.const.OUT + cnt.const.LEAVING_MESSAGE
         if(member.nick is None):
             message = cnt.const.CODEBLOCKS + message.replace('name', f'{str(member.name)}') + cnt.const.CODEBLOCKS
         else:
